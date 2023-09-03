@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class Pessoa implements Serializable {
 	private String nome;
 	private String cpf;
 	private String rg;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_nasc;
 	private String sexo;
 	private String mae;
