@@ -2,6 +2,7 @@ package com.moda.apitestecassio.services;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,13 @@ public class PessoaService {
 
 	public List<Pessoa> findAll() {
 
-		return repository.findAll();
+		List<Pessoa> listaPessoas = repository.findAll();
+		
+		if (!listaPessoas.isEmpty()) {
+			listaPessoas.sort(Comparator.comparing(Pessoa::getNome));
+		}
+		
+		return listaPessoas;
 	}
 
 	public Pessoa findById(Long id) {

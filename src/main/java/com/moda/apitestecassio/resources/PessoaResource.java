@@ -76,7 +76,7 @@ public class PessoaResource {
 			RespostaApiDto respostaDto = new RespostaApiDto();
 			respostaDto.adicionarPessoa(service.cadastrarPessoa(pessoaDto));
 			respostaDto.setMsg("Pessoa cadastrada com sucesso!!!");
-			respostaDto.setStatus(HttpStatus.ACCEPTED.value());
+			respostaDto.setStatus(HttpStatus.CREATED.value());
 			return ResponseEntity.ok().body(respostaDto);
 
 		} catch (Exception e) {

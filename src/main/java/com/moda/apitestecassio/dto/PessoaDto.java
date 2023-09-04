@@ -190,11 +190,11 @@ public class PessoaDto implements Serializable {
 	}
 
 	public String getTipo_sanguineo() {
-		return tipo_sanguineo.toUpperCase();
+		return tipo_sanguineo;
 	}
 
 	public void setTipo_sanguineo(String tipo_sanguineo) {
-		this.tipo_sanguineo = tipo_sanguineo.toUpperCase();
+		this.tipo_sanguineo = tipo_sanguineo;
 	}
 
 	@Override
