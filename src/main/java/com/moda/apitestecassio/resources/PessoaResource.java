@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,11 @@ import com.moda.apitestecassio.entities.Pessoa;
 import com.moda.apitestecassio.exceptions.ApiException;
 import com.moda.apitestecassio.services.PessoaService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+@Validated
 @RestController
 @RequestMapping(value = "/pessoas")
 public class PessoaResource {
@@ -43,7 +49,7 @@ public class PessoaResource {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Pessoa> findById(@PathVariable Long id) throws ApiException {
+	public ResponseEntity<Pessoa> findById(@PathVariable @NotNull @Positive Long id) throws ApiException {
 
 		try {
 
@@ -69,7 +75,7 @@ public class PessoaResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<RespostaApiDto> cadastrarPessoa(@RequestBody PessoaDto pessoaDto) throws ApiException {
+	public ResponseEntity<RespostaApiDto> cadastrarPessoa(@RequestBody @Valid PessoaDto pessoaDto) throws ApiException {
 
 		try {
 
@@ -87,7 +93,7 @@ public class PessoaResource {
 
 	@PostMapping(value = "/processar-doadores/{gravarDoadores}")
 	public ResponseEntity<RespostaProcessamentoDoadoresDto> processarDoadores(@PathVariable boolean gravarDoadores,
-			@RequestBody List<PessoaDto> listaPessoasDto) throws ApiException {
+			@RequestBody List<@Valid PessoaDto> listaPessoasDto) throws ApiException {
 
 		try {
 			return ResponseEntity.ok().body(service.processarDoadores(listaPessoasDto, gravarDoadores));
@@ -99,7 +105,7 @@ public class PessoaResource {
 	}
 
 	@PutMapping
-	public ResponseEntity<RespostaApiDto> atualizarPessoa(@RequestBody PessoaDto pessoaDto) throws ApiException {
+	public ResponseEntity<RespostaApiDto> atualizarPessoa(@RequestBody @Valid PessoaDto pessoaDto) throws ApiException {
 
 		try {
 
@@ -116,7 +122,7 @@ public class PessoaResource {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<RespostaApiDto> deletePessoa(@PathVariable Long id) throws ApiException {
+	public ResponseEntity<RespostaApiDto> deletePessoa(@PathVariable @NotNull @Positive Long id) throws ApiException {
 
 		try {
 			return ResponseEntity.ok().body(service.deleteById(id));

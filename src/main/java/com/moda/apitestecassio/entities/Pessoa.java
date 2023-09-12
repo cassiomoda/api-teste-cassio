@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,37 +16,74 @@ import jakarta.persistence.Id;
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(length = 255, nullable = false)
 	private String nome;
+
+	@Column(length = 15, nullable = false)
 	private String cpf;
+
+	@Column(length = 12)
 	private String rg;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_nasc;
+
+	@Column(length = 10)
 	private String sexo;
+
+	@Column(length = 255)
 	private String mae;
+
+	@Column(length = 255)
 	private String pai;
+
+	@Column(length = 255)
 	private String email;
+
+	@Column(length = 10)
 	private String cep;
+
+	@Column(length = 255)
 	private String endereco;
+
+	@Column(length = 5)
 	private String numero;
+
+	@Column(length = 255)
 	private String bairro;
+
+	@Column(length = 255)
 	private String cidade;
+
+	@Column(length = 2)
 	private String estado;
+
+	@Column(length = 20)
 	private String telefone_fixo;
+
+	@Column(length = 20)
 	private String celular;
+
+	@Column
 	private Double altura;
+
+	@Column
 	private Double peso;
+
+	@Column(length = 5)
 	private String tipo_sanguineo;
-	
+
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, String nome, String cpf, String rg, Date data_nasc, String sexo, String mae,
-			String pai, String email, String cep, String endereco, String numero, String bairro, String cidade,
-			String estado, String telefone_fixo, String celular, Double altura, Double peso, String tipo_sanguineo) {
+	public Pessoa(Long id, String nome, String cpf, String rg, Date data_nasc, String sexo, String mae, String pai,
+			String email, String cep, String endereco, String numero, String bairro, String cidade, String estado,
+			String telefone_fixo, String celular, Double altura, Double peso, String tipo_sanguineo) {
 
 		this.id = id;
 		this.nome = nome;

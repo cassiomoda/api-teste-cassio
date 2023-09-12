@@ -7,31 +7,78 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.Length;
+
 import io.micrometer.common.util.StringUtils;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class PessoaDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@NotBlank
+	@NotNull
+	@Length(min = 3, max = 255)
 	private String nome;
+
+	@NotBlank
+	@NotNull
+	@Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")
 	private String cpf;
+
+	@Length(max = 12)
 	private String rg;
+
+	@Pattern(regexp = "(\\d{2}/\\d{2}/\\d{4})?")
 	private String data_nasc;
+
+	@Pattern(regexp = "(Feminino|Masculino)?")
 	private String sexo;
+
+	@Length(max = 255)
 	private String mae;
+
+	@Length(max = 255)
 	private String pai;
+
+	@Length(max = 255)
+	@Email
 	private String email;
+
+	@Pattern(regexp = "(\\d{5}-\\d{3})?")
 	private String cep;
+
+	@Length(max = 255)
 	private String endereco;
+
+	@Length(max = 5)
 	private String numero;
+
+	@Length(max = 255)
 	private String bairro;
+
+	@Length(max = 255)
 	private String cidade;
+
+	@Length(max = 2)
 	private String estado;
+
+	@Length(max = 20)
 	private String telefone_fixo;
+
+	@Length(max = 20)
 	private String celular;
+
 	private Double altura;
+
 	private Double peso;
+
+	@Length(max = 5)
 	private String tipo_sanguineo;
 
 	public PessoaDto() {
@@ -213,13 +260,13 @@ public class PessoaDto implements Serializable {
 		PessoaDto other = (PessoaDto) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
 	}
-	
+
 	public Date getDataNascimento() {
 		if (StringUtils.isBlank(data_nasc)) {
 			return null;
 		} else {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			
+
 			try {
 				return format.parse(data_nasc);
 			} catch (ParseException e) {
@@ -228,20 +275,20 @@ public class PessoaDto implements Serializable {
 			}
 		}
 	}
-	
+
 	public Integer getIdade() {
-		
+
 		if (data_nasc == null) {
 			return 0;
 		} else {
 			Calendar calendar = Calendar.getInstance();
-			
+
 			calendar.setTime(this.getDataNascimento());
 			Integer anoNascimento = calendar.get(Calendar.YEAR);
-			
+
 			calendar.setTime(new Date());
 			Integer anoAtual = calendar.get(Calendar.YEAR);
-			
+
 			return anoAtual - anoNascimento;
 		}
 	}
