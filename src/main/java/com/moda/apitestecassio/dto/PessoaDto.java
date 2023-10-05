@@ -81,6 +81,11 @@ public class PessoaDto implements Serializable {
 	@Length(max = 5)
 	private String tipo_sanguineo;
 
+	@NotNull
+	@Length(max = 10)
+	@Pattern(regexp = "Ativo|Inativo")
+	private String status = "Ativo";
+
 	public PessoaDto() {
 	}
 
@@ -242,6 +247,14 @@ public class PessoaDto implements Serializable {
 
 	public void setTipo_sanguineo(String tipo_sanguineo) {
 		this.tipo_sanguineo = tipo_sanguineo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

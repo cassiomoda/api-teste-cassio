@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -13,6 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+@SQLDelete(sql = "UPDATE pessoa SET status = 'Inativo' WHERE id = ?")
+@Where(clause = "status = 'Ativo'")
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -77,6 +82,9 @@ public class Pessoa implements Serializable {
 
 	@Column(length = 5)
 	private String tipo_sanguineo;
+
+	@Column(length = 10, nullable = false)
+	private String status = "Ativo";
 
 	public Pessoa() {
 	}
@@ -265,6 +273,14 @@ public class Pessoa implements Serializable {
 
 	public void setTipo_sanguineo(String tipo_sanguineo) {
 		this.tipo_sanguineo = tipo_sanguineo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
